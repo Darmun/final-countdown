@@ -9,7 +9,9 @@ export default class extends React.Component {
 
     handleDateChange = ({target:{value}}) => {
 const valueToDate = moment(value),
-      valid = valueToDate.isValid() && !isNaN(valueToDate) && valueToDate.isAfter(moment());
+      valid = valueToDate.isValid() 
+      && !isNaN(valueToDate) 
+      && valueToDate.isAfter(moment());
 
         this.setState({
             date: value,
@@ -42,7 +44,7 @@ const valueToDate = moment(value),
                 <button
                     className="button is-light is-medium is-rounded is-outlined"
                     onClick={this.onDateSubmit}
-                    >
+                >
                     Reset
                 </button>
             </p>
