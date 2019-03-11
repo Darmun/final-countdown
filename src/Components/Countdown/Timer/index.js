@@ -10,7 +10,7 @@ export default ({duration}) =>
                             Days
                         </p>
                         <p className="title">
-                            {Math.floor(duration.asDays()) }
+                            {Math.floor(duration.asDays())}
                         </p>
                     </div>
                 </div>
@@ -20,7 +20,7 @@ export default ({duration}) =>
                             Hours
                         </p>
                         <p className="title">
-                            {duration.hours().toString().padStart(2, '0') }
+                            {duration.hours().toString().padStart(2, '0')}
                         </p>
                     </div>
                 </div>
@@ -30,7 +30,7 @@ export default ({duration}) =>
                             Minutes
                         </p>
                         <p className="title">
-                            {duration.minutes().toString().padStart(2, '0') }
+                            {duration.minutes().toString().padStart(2, '0')}
                         </p>
                     </div>
                 </div>
@@ -40,7 +40,7 @@ export default ({duration}) =>
                             Seconds
                         </p>
                         <p className="title">
-                            {duration.seconds().toString().padStart(2, '0') }
+                            {duration.seconds().toString().padStart(2, '0')}
                         </p>
                     </div>
                 </div>
