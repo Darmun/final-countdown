@@ -8,11 +8,12 @@ export default class extends React.Component {
     }
 
     handleDateChange = ({target:{value}}) => {
-const valueToDate = moment(value);
+const valueToDate = moment(value),
+      valid = valueToDate.isValid() && !isNaN(valueToDate) && valueToDate.isAfter(moment());
 
         this.setState({
             date: value,
-            valid: valueToDate.isValid() && valueToDate.isAfter(moment())
+            valid: valid
         })
     }
 
