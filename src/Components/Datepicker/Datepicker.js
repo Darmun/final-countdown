@@ -12,18 +12,14 @@ const valueToDate = moment(value);
 
         this.setState({
             date: value,
-            valid: valueToDate.isValid()
+            valid: valueToDate.isValid() && valueToDate.isAfter(moment())
         })
     }
 
     onDateSubmit = (e) => {
         e.preventDefault();
-        if(this.state.valid){
-        this.props.onDateSubmit(moment(this.state.date));
-        }
-        else{
-            console.log("Invalid date.")
-        }
+        this.state.valid && this.props.onDateSubmit(moment(this.state.date));
+  
     }
 
     render() {

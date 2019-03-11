@@ -1,25 +1,34 @@
 import React from 'react';
 import moment from 'moment';
+import 'moment-holiday';
 import Controls from './Controls';
 import Timer from './Timer';
 import Datepicker from '../Datepicker/Datepicker';
-
+import HolidaysModal from '../HolidaysModal/HolidaysModal';
 
 export default class extends React.Component {
     state = {
         currentDate: moment(),
         submittedDate: moment({ year: moment().year() + 1 }),
         paused: false,
+        showHolidays: false
     };
 
 
     componentDidMount() {
         this.resumeTimer();
+        this.getHolidays();
     };
 
     componentWillUnmount() {
         this.pauseTimer();
     };
+
+    getHolidays(){
+        const {currentDate, submittedDate} = this.state;
+
+        return currentDate.holidaysBetween(submittedDate);
+    }
 
     getRemainingTime() {
         let {currentDate, submittedDate} = this.state,
@@ -62,9 +71,16 @@ export default class extends React.Component {
         })
     }
 
+    handleHolidaysToggle = () => {
+        this.setState({
+            showHolidays: !this.state.showHolidays
+        })
+    }
+
     render() {
-        const {paused,submittedDate} = this.state,
-               duration = this.getRemainingTime();
+        const {paused, submittedDate, showHolidays} = this.state,
+            duration = this.getRemainingTime(),
+            holidays = this.getHolidays();
 
         return (
             <section className="hero is-dark is-bold is-fullheight has-text-centered">
@@ -72,19 +88,30 @@ export default class extends React.Component {
                     <div className="container">
                         <h1 className="title">
                             {submittedDate.calendar()} is coming!
+                            <button 
+                            className="button is-rounded is-small is-light" 
+                            style={{margin: '7px 0px 0px 10px'}}
+                            onClick={this.handleHolidaysToggle}
+                            >
+                                Holidays
+                            </button>
                         </h1>
                         <div className="section">
                             <Timer
                                 duration={duration}
                                 />
                         </div>
-                        <Datepicker 
-                        onDateSubmit={this.handleDateSubmit}
-                        />
+                        <Datepicker
+                            onDateSubmit={this.handleDateSubmit}
+                            />
                         <Controls
                             pause={paused}
                             onPauseToggle={this.handleTogglePause}
                             />
+                        <HolidaysModal
+                        holidays={holidays} 
+                        active={showHolidays} 
+                        onToggle={this.handleHolidaysToggle}/>
                     </div>
                 </div>
             </section>
