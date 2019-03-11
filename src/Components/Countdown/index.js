@@ -2,15 +2,14 @@ import React from 'react';
 import moment from 'moment';
 import Controls from './Controls';
 import Timer from './Timer';
-import Datepicker from '../Datepicker/Datepicker';
+import Datepicker from '../Datepicker';
 
 export default class extends React.Component {
     state = {
         currentDate: moment(),
-        submittedDate: moment({ year: moment().year() + 1 }),
+        submittedDate: moment({year: moment().year() + 1 }),
         paused: false,
     };
-
 
     componentDidMount() {
         this.resumeTimer();
@@ -29,23 +28,23 @@ export default class extends React.Component {
 
     handleTogglePause = () => {
         this.setState(({paused}, props) => {
-            paused = !paused
+            paused = !paused;
             if (paused) {
                 this.pauseTimer();
             }
             else {
                 this.resumeTimer();
-            }
+            };
 
             const nextState = {
                 paused
-            }
+            };
 
-            !paused && (nextState.currentDate = moment())
+            !paused && (nextState.currentDate = moment());
 
-            return nextState
+            return nextState;
         })
-    }
+    };
 
     pauseTimer() {
         clearInterval(this.interval);
@@ -56,14 +55,14 @@ export default class extends React.Component {
             this.setState({
                 currentDate: moment()
             })
-        }, 1000)
+        }, 1000);
     };
 
     handleDateSubmit = (newDate) => {
         this.setState({
             submittedDate: newDate
-        })
-    }
+        });
+    };
 
 
     render() {
@@ -75,23 +74,23 @@ export default class extends React.Component {
                 <div className="hero-body">
                     <div className="container">
                         <h1 className="title">
-                            {submittedDate.calendar() } is coming!
+                            {submittedDate.format('LL')} is coming!
                         </h1>
                         <div className="section">
                             <Timer
                                 duration={duration}
-                                />
+                             />
                         </div>
                         <Datepicker
                             onDateSubmit={this.handleDateSubmit}
-                            />
+                        />
                         <Controls
                             pause={paused}
                             onPauseToggle={this.handleTogglePause}
-                            />
+                        />
                         <section className="section">
                             <p>
-                                {currentDate.format('LLLL') }
+                                {currentDate.format('LLLL')}
                             </p>
                         </section>
                     </div>
