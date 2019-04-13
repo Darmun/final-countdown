@@ -37,7 +37,7 @@ export default class extends React.Component {
           <input
             className="input is-medium is-rounded"
             value={date}
-            placeholder="Pick a date.."
+            placeholder="Pick a date [MM-DD-YYYY]"
             onChange={this.handleDateChange}
           />
         </p>
